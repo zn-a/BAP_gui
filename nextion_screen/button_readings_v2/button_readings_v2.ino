@@ -1,6 +1,10 @@
 #include "math.h"
+#include <SoftwareSerial.h>
+
+SoftwareSerial nextion(10, 11); // RX, TX
 
 void setup() {
+  nextion.begin(9600);
   Serial.begin(9600); // Initialize communication with Nextion display at 9600 bps
 
   // Initially display the welcome page
@@ -26,7 +30,7 @@ void loop() {
   // }
 
   // Read from Nextion if there's any input (for handling button presses or other events)
-  if (Serial.available()) {
+  if (nextion.available()) {
     String data = readSerial();
     // handleNextionEvents(data);
   }
@@ -60,21 +64,21 @@ void updateNextionDisplay(String component, String value) {
 }
 
 void sendWaveformData(uint8_t channel, int value) {
-  Serial.print("add "); 
-  Serial.print(channel);
-  Serial.print(",");
-  Serial.print(value);
-  Serial.write(0xff);
-  Serial.write(0xff);
-  Serial.write(0xff);
+  nextion.print("add "); 
+  nextion.print(channel);
+  nextion.print(",");
+  nextion.print(value);
+  nextion.write(0xff);
+  nextion.write(0xff);
+  nextion.write(0xff);
 }
 
 // Function to send commands to the Nextion
 void sendCommand(String command) {
-  Serial.print(command);
-  Serial.write(0xff);
-  Serial.write(0xff);
-  Serial.write(0xff);
+  nextion.print(command);
+  nextion.write(0xff);
+  nextion.write(0xff);
+  nextion.write(0xff);
 }
 
 // Function to read data from Serial
