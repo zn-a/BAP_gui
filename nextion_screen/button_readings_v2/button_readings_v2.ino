@@ -1,7 +1,9 @@
 #include "math.h"
 #include <SoftwareSerial.h>
 
-SoftwareSerial nextion(10, 11); // RX, TX
+SoftwareSerial nextion(10, 11); // RX, TX.
+
+
 
 void setup() {
   nextion.begin(9600);
@@ -41,9 +43,9 @@ void loop() {
   float power = voltage * current; // Calculate power
 
   // Format the display text to include all three measurements
-  String displayText = "V: " + String(voltage, 2) + " [V]\\r" +
-                       "I: " + String(current, 2) + "  [A]\\r" +
-                       "P: " + String(power, 2) + " [W]";
+  String displayText = "V:\t" + String(voltage, 2) + " [V]\\r" +
+                       "I:\t" + String(current, 2) + "  [A]\\r" +
+                       "P:\t" + String(power, 2) + " [W]";
 
   // Update the Nextion display for each button
   updateNextionDisplay("b0.txt", displayText);
