@@ -56,7 +56,7 @@ void loop() {
   updateNextionDisplay("b4.txt", displayText);
   updateNextionDisplay("b5.txt", displayText);
 
-  delay(1); // Update interval
+  delay(100); // Update interval
 }
 
 // Function to send updates to the Nextion
