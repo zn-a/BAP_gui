@@ -1,12 +1,12 @@
 #include <SoftwareSerial.h>
 #include <math.h>
 
-// Define the pins for SoftwareSerial
-#define RX_PIN 10
-#define TX_PIN 11
+// // Define the pins for SoftwareSerial
+// #define RX_PIN 10
+// #define TX_PIN 11
 
-// Initialize SoftwareSerial for communication with Nextion
-SoftwareSerial nextion(RX_PIN, TX_PIN);
+// // Initialize SoftwareSerial for communication with Nextion
+// SoftwareSerial nextion(RX_PIN, TX_PIN);
 
 // Constants for the sine wave
 const int amplitude = 40; // Half of 255, as the waveform component in Nextion takes values from 0 to 255
@@ -21,7 +21,7 @@ const int power = 150;
 
 void setup() {
   // Begin Serial communication at 9600 baud
-  nextion.begin(9600);
+  Serial.begin(9600);
 }
 
 void loop() {
@@ -32,14 +32,14 @@ void loop() {
     int y = amplitude * sin(radian * frequency) + offset;
 
     // Send the value to the Nextion display
-    nextion.print("add 1,0,");
-    nextion.print(y);
-    nextion.write(0xFF);
-    nextion.write(0xFF);
-    nextion.write(0xFF);
+    Serial.print("add 1,0,");
+    Serial.print(y);
+    Serial.write(0xFF);
+    Serial.write(0xFF);
+    Serial.write(0xFF);
 
     // Delay to control the frequency of the sine wave
-    delay(0.01); // Adjust this delay to change the wave speed
+    delay(1); // Adjust this delay to change the wave speed
   }
 
   // // Send the voltage value to Channel 1

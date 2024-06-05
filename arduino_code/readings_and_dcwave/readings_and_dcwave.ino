@@ -8,7 +8,8 @@
 SoftwareSerial nextion(RX_PIN, TX_PIN);
 
 // List of specific voltages to cycle through
-float voltages[] = {5.00, 9.00, 12.00, 40.00};
+// float voltages[] = {5.00, 9.00, 12.00, 40.00};
+float voltages[] = {random(330, 500) / 100.0, random(330, 500) / 100.0, random(330, 500) / 100.0};
 const int numVoltages = sizeof(voltages) / sizeof(voltages[0]);
 const float resistance = 1.00; // Resistance in ohms
 
