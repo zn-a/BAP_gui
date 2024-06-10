@@ -3,6 +3,7 @@
 // Define the pins for SoftwareSerial
 #define RX_PIN 10
 #define TX_PIN 11
+#define BAUDRATE 115200
 
 // Initialize SoftwareSerial for communication with Nextion
 SoftwareSerial nextion(RX_PIN, TX_PIN);
@@ -14,7 +15,7 @@ const int numVoltages = sizeof(voltages) / sizeof(voltages[0]);
 const float resistance = 1.00; // Resistance in ohms
 
 void setup() {
-    nextion.begin(9600);
+    nextion.begin(BAUDRATE);
 }
 
 void loop() {

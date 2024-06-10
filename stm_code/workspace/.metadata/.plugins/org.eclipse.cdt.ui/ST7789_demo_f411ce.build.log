@@ -1,0 +1,10 @@
+15:22:02 **** Incremental Build of configuration Debug for project ST7789_demo_f411ce ****
+make -j12 all 
+arm-none-eabi-size  ST7789_demo_f411ce.elf 
+   text	   data	    bss	    dec	    hex	filename
+ 130324	    128	   2688	 133140	  20814	ST7789_demo_f411ce.elf
+Finished building: default.size.stdout
+ 
+
+15:22:02 Build Finished. 0 errors, 0 warnings. (took 300ms)
+

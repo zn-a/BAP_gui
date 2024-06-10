@@ -6,7 +6,8 @@ SoftwareSerial nextion(10, 11); // RX, TX.
 
 
 void setup() {
-  nextion.begin(9600);
+  // nextion.begin(9600);
+  nextion.begin(115200);
   Serial.begin(9600); // Initialize communication with Nextion display at 9600 bps
 
   // Initially display the welcome page
@@ -56,7 +57,7 @@ void loop() {
   updateNextionDisplay("b4.txt", displayText);
   updateNextionDisplay("b5.txt", displayText);
 
-  delay(100); // Update interval
+  delay(500); // Update interval
 }
 
 // Function to send updates to the Nextion
