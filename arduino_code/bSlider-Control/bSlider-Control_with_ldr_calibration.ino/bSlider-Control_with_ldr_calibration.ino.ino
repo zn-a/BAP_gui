@@ -39,7 +39,7 @@ void loop() {
 
   if (adaptiveBrightness) {
     int ldrValue = analogRead(ldrPin); // Read the light level from the LDR
-    int brightness = map(ldrValue, 530, 570, 10, 100); // Map the LDR value to a brightness level (10-100)
+    int brightness = map(ldrValue, 500, 545, 10, 100); // Map the LDR value to a brightness level (10-100)
     brightness = constrain(brightness, 10, 100);
 
     // Send the command to set brightness
