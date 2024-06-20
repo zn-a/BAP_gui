@@ -1,8 +1,8 @@
 #include <SoftwareSerial.h>
 
 // Define the pins for SoftwareSerial
-#define RX_PIN 10
-#define TX_PIN 11
+#define RX_PIN PA3
+#define TX_PIN PA2
 #define BAUDRATE 115200
 
 // Initialize SoftwareSerial for communication with Nextion
@@ -26,14 +26,14 @@ void loop() {
 
         // Update the Nextion display for each button corresponding to a port
         for (int j = 0; j < 6; j++) {
-            String displayText = "V:\t" + String(voltage, 1) + " [V]\\r" +
-                                 "I:\t" + String(current, 1) + " [A]\\r" +
-                                 "P:\t" + String(power, 1) + " [W]";
+            String displayText = "V:\t" + String(voltage, 2) + " [V]\\r" +
+                                 "I:\t" + String(current, 2) + " [A]\\r" +
+                                 "P:\t" + String(power, 2) + " [W]";
             updateNextionDisplay("b" + String(j) + ".txt", displayText);
         }
 
         // Display and hold values on waveform
-        updateNextionWaveform(voltage, current, power, 1000); // 1 second hold time
+        updateNextionWaveform(voltage, current, power, 500); // 1 second hold time
     }
 }
 

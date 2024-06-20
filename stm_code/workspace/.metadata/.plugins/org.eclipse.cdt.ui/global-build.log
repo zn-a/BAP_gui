@@ -91,3 +91,80 @@ arm-none-eabi-size  ST7789_demo_f411ce.elf
  130324	    128	   2688	 133140	  20814	ST7789_demo_f411ce.elf
 Finished building: default.size.stdout
  
+21:42:03 **** Build of configuration Debug for project project1 ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "project1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\PCZ\Desktop\BAP\cloud\BAP_gui\stm_code\workspace\project1\STM32F411CEUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="project1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: project1.elf
+ 
+arm-none-eabi-size  project1.elf 
+arm-none-eabi-objdump -h -S project1.elf  > "project1.list"
+   text	   data	    bss	    dec	    hex	filename
+   5792	     12	   1572	   7376	   1cd0	project1.elf
+Finished building: default.size.stdout
+ 
+Finished building: project1.list
+ 
+21:42:18 **** Incremental Build of configuration Debug for project project1 ****
+make -j12 all 
+arm-none-eabi-size  project1.elf 
+   text	   data	    bss	    dec	    hex	filename
+   5792	     12	   1572	   7376	   1cd0	project1.elf
+Finished building: default.size.stdout
+ 
+21:42:30 **** Incremental Build of configuration Debug for project project1 ****
+make -j12 all 
+arm-none-eabi-size  project1.elf 
+   text	   data	    bss	    dec	    hex	filename
+   5792	     12	   1572	   7376	   1cd0	project1.elf
+Finished building: default.size.stdout
+ 
+21:42:49 **** Incremental Build of configuration Debug for project project1 ****
+make -j12 all 
+arm-none-eabi-size  project1.elf 
+   text	   data	    bss	    dec	    hex	filename
+   5792	     12	   1572	   7376	   1cd0	project1.elf
+Finished building: default.size.stdout
+ 
+21:43:13 **** Incremental Build of configuration Debug for project project1 ****
+make -j12 all 
+arm-none-eabi-size  project1.elf 
+   text	   data	    bss	    dec	    hex	filename
+   5792	     12	   1572	   7376	   1cd0	project1.elf
+Finished building: default.size.stdout
+ 
+21:44:48 **** Incremental Build of configuration Debug for project project1 ****
+make -j12 all 
+arm-none-eabi-size  project1.elf 
+   text	   data	    bss	    dec	    hex	filename
+   5792	     12	   1572	   7376	   1cd0	project1.elf
+Finished building: default.size.stdout
+ 
+21:46:37 **** Incremental Build of configuration Debug for project project1 ****
+make -j12 all 
+arm-none-eabi-size  project1.elf 
+   text	   data	    bss	    dec	    hex	filename
+   5792	     12	   1572	   7376	   1cd0	project1.elf
+Finished building: default.size.stdout
+ 
+21:46:49 **** Incremental Build of configuration Debug for project project1 ****
+make -j12 all 
+arm-none-eabi-size  project1.elf 
+   text	   data	    bss	    dec	    hex	filename
+   5792	     12	   1572	   7376	   1cd0	project1.elf
+Finished building: default.size.stdout
+ 
+21:48:37 **** Incremental Build of configuration Debug for project project1 ****
+make -j12 all 
+arm-none-eabi-size  project1.elf 
+   text	   data	    bss	    dec	    hex	filename
+   5792	     12	   1572	   7376	   1cd0	project1.elf
+Finished building: default.size.stdout
+ 
+21:53:54 **** Incremental Build of configuration Debug for project project1 ****
+make -j12 all 
+arm-none-eabi-size  project1.elf 
+   text	   data	    bss	    dec	    hex	filename
+   5792	     12	   1572	   7376	   1cd0	project1.elf
+Finished building: default.size.stdout
+ 
