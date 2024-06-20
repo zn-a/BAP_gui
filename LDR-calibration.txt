@@ -1,0 +1,6 @@
+min LDR value, arduino: 511 (completely covered with finger), 530 (lights off)
+max LDR value, arduino: 760 (direct contact flash light), 570 (max lights)
+
+
+min LDR value, stm: 667 (completely covered with finger), 685 (lights off)
+max LDR value, stm: 999 (direct contact flash light), 740 (max lights)
