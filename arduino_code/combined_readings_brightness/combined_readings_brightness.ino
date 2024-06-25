@@ -11,10 +11,21 @@ const int ldrPin = PA1; // Pin where the LDR is connected
 const float gain = 1.0; // Gain factor to increase sensitivity
 bool adaptiveBrightness = false;
 
-// List of specific voltages to cycle through
-float voltages[] = {random(330, 500) / 100.0, random(330, 500) / 100.0, random(330, 500) / 100.0};
-const int numVoltages = sizeof(voltages) / sizeof(voltages[0]);
-const float resistance = 1.00; // Resistance in ohms
+// Realistic voltage, current, and power values for different devices
+struct Device {
+  float voltage;
+  float current;
+  float power;
+};
+
+Device devices[] = {
+  {5.00, 1.00, 5.00},  // Smartphone
+  {9.00, 2.00, 18.00}, // Tablet
+  {3.70, 0.50, 1.85},  // Earbuds
+  {4.20, 0.35, 1.47},  // Smartwatch
+  {12.00, 8.33, 100.0} // Soldering Iron
+};
+const int numDevices = sizeof(devices) / sizeof(devices[0]);
 
 void setup() {
   // Initialize SoftwareSerial for Nextion
@@ -30,8 +41,7 @@ void setup() {
 }
 
 void loop() {
-
-    // Always run DC wave generation
+  // Always run DC wave generation
   generateDCWave();
   
   // Check for Nextion data
@@ -52,19 +62,19 @@ void loop() {
     }
   }
 
+  delay(50);
 
-      delay(200);
   // Conditionally run adaptive brightness control
   if (adaptiveBrightness) {
     handleAdaptiveBrightness();
   }
 
-  delay(100); // Adjust as needed
+  delay(1); // Adjust as needed
 }
 
 void handleAdaptiveBrightness() {
   int ldrValue = analogRead(ldrPin); // Read the light level from the LDR
-  int brightness = map(ldrValue, 685, 740, 10, 100); // Map the LDR value to a brightness level (10-100)
+  int brightness = map(ldrValue, 685, 770, 10, 100); // Map the LDR value to a brightness level (10-100)
   brightness = constrain(brightness, 10, 100);
 
   // Send the command to set brightness
@@ -96,21 +106,21 @@ void handleAdaptiveBrightness() {
 }
 
 void generateDCWave() {
-  for (int i = 0; i < numVoltages; i++) {
-    float voltage = voltages[i];
-    float current = voltage / resistance;
-    float power = voltage * current;
+  for (int j = 0; j < 6; j++) {
+    // Select a random device for each port
+    Device device = devices[random(numDevices)];
+    float voltage = device.voltage;
+    float current = device.current;
+    float power = device.power;
 
     // Update the Nextion display for each button corresponding to a port
-    for (int j = 0; j < 6; j++) {
-      String displayText = "V: " + String(voltage, 2) + " [V]\\r" +
-                           "I: " + String(current, 2) + " [A]\\r" +
-                           "P: " + String(power, 2) + " [W]";
-      updateNextionDisplay("b" + String(j) + ".txt", displayText);
-    }
+    String displayText = "V: " + String(voltage, 2) + " [V]\\r" +
+                         "I: " + String(current, 2) + " [A]\\r" +
+                         "P: " + String(power, 2) + " [W]";
+    updateNextionDisplay("b" + String(j) + ".txt", displayText);
 
     // Display and hold values on waveform
-    updateNextionWaveform(voltage, current, power, 500); // 0.5 second hold time
+    updateNextionWaveform(voltage, current, power, 100); // 0.5 second hold time
   }
 }
 
