@@ -1,7 +1,7 @@
 #include <SoftwareSerial.h>
 
-#define RX_PIN PA3
-#define TX_PIN PA2
+#define RX_PIN PA2
+#define TX_PIN PA3
 #define BAUDRATE 115200
 
 // Initialize SoftwareSerial for communication with Nextion
