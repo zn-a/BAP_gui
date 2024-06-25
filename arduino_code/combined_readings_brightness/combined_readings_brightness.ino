@@ -11,22 +11,6 @@ const int ldrPin = PA1; // Pin where the LDR is connected
 const float gain = 1.0; // Gain factor to increase sensitivity
 bool adaptiveBrightness = false;
 
-// Realistic voltage, current, and power values for different devices
-struct Device {
-  float voltage;
-  float current;
-  float power;
-};
-
-Device devices[] = {
-  {5.00, 1.00, 5.00},  // Smartphone
-  {9.00, 2.00, 18.00}, // Tablet
-  {3.70, 0.50, 1.85},  // Earbuds
-  {4.20, 0.35, 1.47},  // Smartwatch
-  {12.00, 8.33, 100.0} // Soldering Iron
-};
-const int numDevices = sizeof(devices) / sizeof(devices[0]);
-
 void setup() {
   // Initialize SoftwareSerial for Nextion
   nextion.begin(BAUDRATE); // Use the baud rate configured for Nextion
@@ -43,12 +27,12 @@ void setup() {
 void loop() {
   // Always run DC wave generation
   generateDCWave();
-  
+
   // Check for Nextion data
   if (nextion.available()) {
     while (nextion.available()) {
       char c = nextion.read();
-      if (c == 0x23) { // Custom command prefix
+      if (c == 0x23) { // Custom command prefix for adaptive brightness
         char val = nextion.read();
         if (val == 0x01) {
           adaptiveBrightness = true; // Adaptive brightness ON
@@ -58,6 +42,17 @@ void loop() {
         // Debugging output
         Serial.print("Adaptive Brightness: ");
         Serial.println(adaptiveBrightness ? "ON" : "OFF");
+      }
+      else if (c == 0x24) { // Custom command prefix for set_on/set_off
+        char val = nextion.read();
+        if (val == 0x01) {
+          set_on(); // Activate set_on function
+        } else if (val == 0x00) {
+          set_off(); // Activate set_off function
+        }
+        // Debugging output
+        Serial.print("Button State: ");
+        Serial.println(val == 0x01 ? "ON" : "OFF");
       }
     }
   }
@@ -72,9 +67,25 @@ void loop() {
   delay(50); // Adjust as needed
 }
 
+void set_on() {
+  // Code to handle the ON state
+  Serial.println("Set ON function activated");
+  // Example: Turn on an LED connected to PC13
+  pinMode(PC13, OUTPUT);
+  digitalWrite(PC13, LOW); // Turn on LED (assuming active low)
+}
+
+void set_off() {
+  // Code to handle the OFF state
+  Serial.println("Set OFF function activated");
+  // Example: Turn off an LED connected to PC13
+  pinMode(PC13, OUTPUT);
+  digitalWrite(PC13, HIGH); // Turn off LED (assuming active low)
+}
+
 void handleAdaptiveBrightness() {
   int ldrValue = analogRead(ldrPin); // Read the light level from the LDR
-  int brightness = map(ldrValue, 685, 770, 10, 100); // Map the LDR value to a brightness level (10-100)
+  int brightness = map(ldrValue, 685, 740, 10, 100); // Map the LDR value to a brightness level (10-100)
   brightness = constrain(brightness, 10, 100);
 
   // Send the command to set brightness
@@ -106,21 +117,25 @@ void handleAdaptiveBrightness() {
 }
 
 void generateDCWave() {
-  for (int j = 0; j < 6; j++) {
-    // Select a random device for each port
-    Device device = devices[random(numDevices)];
-    float voltage = device.voltage;
-    float current = device.current;
-    float power = device.power;
+  float voltages[] = {random(330, 500) / 100.0, random(330, 500) / 100.0, random(330, 500) / 100.0};
+  const int numVoltages = sizeof(voltages) / sizeof(voltages[0]);
+  const float resistance = 1.00; // Resistance in ohms
+
+  for (int i = 0; i < numVoltages; i++) {
+    float voltage = voltages[i];
+    float current = voltage / resistance;
+    float power = voltage * current;
 
     // Update the Nextion display for each button corresponding to a port
-    String displayText = "V: " + String(voltage, 2) + " [V]\\r" +
-                         "I: " + String(current, 2) + " [A]\\r" +
-                         "P: " + String(power, 2) + " [W]";
-    updateNextionDisplay("b" + String(j) + ".txt", displayText);
+    for (int j = 0; j < 6; j++) {
+      String displayText = "V: " + String(voltage, 2) + " [V]\\r" +
+                           "I: " + String(current, 2) + " [A]\\r" +
+                           "P: " + String(power, 2) + " [W]";
+      updateNextionDisplay("b" + String(j) + ".txt", displayText);
+    }
 
     // Display and hold values on waveform
-    updateNextionWaveform(voltage, current, power, 100); // 0.5 second hold time
+    updateNextionWaveform(voltage, current, power, 500); // 0.5 second hold time
   }
 }
 
