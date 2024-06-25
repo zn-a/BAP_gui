@@ -69,7 +69,7 @@ void loop() {
     handleAdaptiveBrightness();
   }
 
-  delay(1); // Adjust as needed
+  delay(50); // Adjust as needed
 }
 
 void handleAdaptiveBrightness() {
