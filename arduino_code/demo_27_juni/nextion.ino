@@ -24,10 +24,10 @@ void nextion_serial_polling(){
 
 void voltage_buttons_handeler(byte val){
   switch (val) {
-    case 0x00:
+    case 0x07:
       Serial.println("Set OFF function activated");
       turn_of_vbus();
-    case 0x01:
+    case 0x08:
       Serial.println("Set ON function activated");
       turn_on_v_bus();
       delay(2);
